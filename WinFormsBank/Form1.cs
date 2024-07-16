@@ -15,6 +15,11 @@ namespace WinFormsBank
         }
         private void Form1_Load(object sender, EventArgs e)
         {
+            deletes.Visible = false;
+            logout.Visible = false;
+            withdrawText.Visible = false;
+            withdraws.Visible = false;
+            withdraw.Visible = false;
             Error.Visible = false;
             deposits.Visible = false;
             deposit.Visible = false;
@@ -82,6 +87,8 @@ namespace WinFormsBank
             Done.Visible = false;
             login.Visible = true;
             delete.Visible = true;
+            usernameTextBox.Text = "username";
+            passwordTextBox.Text = "password";
         }
 
         private void login_Click(object sender, EventArgs e)
@@ -93,6 +100,8 @@ namespace WinFormsBank
             usernameTextBox.ReadOnly = false;
             passwordTextBox.ReadOnly = false;
             ready.Visible = true;
+            usernameTextBox.Text = "username";
+            passwordTextBox.Text = "password";
         }
 
         private void ready_Click(object sender, EventArgs e)
@@ -110,6 +119,8 @@ namespace WinFormsBank
             ready.Visible = false;
             checkBalance.Visible = true;
             deposit.Visible = true;
+            withdraw.Visible = true;
+            logout.Visible = true;
             current = bank.GetAccount(usernameTextBox.Text, passwordTextBox.Text);
         }
 
@@ -119,6 +130,12 @@ namespace WinFormsBank
             balanceText.Visible = true;
             balanceText.Text = current.checkBalance().ToString();
             dones.Visible = true;
+            checkBalance.Visible = false;
+            deposit.Visible = false;
+            checkBalance.Visible = false;
+            deposit.Visible = false;
+            withdraw.Visible = false;
+            logout.Visible = false;
         }
 
         private void dones_Click(object sender, EventArgs e)
@@ -126,7 +143,10 @@ namespace WinFormsBank
             dones.Visible = false;
             balanceText.Visible = false;
             checkBalance.Visible = true;
-
+            checkBalance.Visible = true;
+            deposit.Visible = true;
+            withdraw.Visible = true;
+            logout.Visible = true;
         }
 
         private void deposit_Click(object sender, EventArgs e)
@@ -134,19 +154,24 @@ namespace WinFormsBank
 
             deposits.Visible = true;
             depositNumber.Visible = true;
+            depositNumber.Text = "0";
             balanceText.Visible = true;
             balanceText.Text = current.checkBalance().ToString();
-            
-            
+            checkBalance.Visible = false;
+            deposit.Visible = false;
+            withdraw.Visible = false;
+            logout.Visible = false;
         }
 
         private void deposits_Click(object sender, EventArgs e)
         {
             float balance = current.checkBalance();
-            float deposit_float = float.Parse(depositNumber.Text);
-            if (current.deposit(deposit_float))
+
+            float deposit_float;
+            bool tried = float.TryParse(depositNumber.Text, out deposit_float);
+            if (current.deposit(deposit_float) && tried == true)
             {
-                balance = current.checkBalance();
+                balance += current.checkBalance();
                 balanceText.Text = balance.ToString();
             }
             else
@@ -157,6 +182,92 @@ namespace WinFormsBank
             deposits.Visible = false;
             depositNumber.Visible = false;
             balanceText.Visible = false;
+            Error.Visible = false;
+            checkBalance.Visible = true;
+            deposit.Visible = true;
+            withdraw.Visible = true;
+            logout.Visible = true;
+        }
+
+        private void withdraw_Click(object sender, EventArgs e)
+        {
+            checkBalance.Visible = false;
+            deposit.Visible = false;
+            withdraw.Visible = false;
+            balanceText.Text = current.checkBalance().ToString();
+            withdraws.Visible = true;
+            withdrawText.Visible = true;
+            withdrawText.Text = "0";
+            balanceText.Visible = true;
+            logout.Visible = false;
+        }
+
+        private void withdraws_Click(object sender, EventArgs e)
+        {
+            float balance = current.checkBalance();
+            float withdraw_float;
+            bool tried = float.TryParse(withdrawText.Text, out withdraw_float);
+            if (current.withdraw(withdraw_float) && tried == true)
+            {
+                balance -= current.checkBalance();
+                balanceText.Text = balance.ToString();
+            }
+            else
+            {
+                Error.Visible = true;
+                return;
+            }
+            withdraws.Visible = false;
+            withdrawText.Visible = false;
+            balanceText.Visible = false;
+            Error.Visible = false;
+            checkBalance.Visible = true;
+            deposit.Visible = true;
+            withdraw.Visible = true;
+            logout.Visible = true;
+        }
+
+        private void logout_Click(object sender, EventArgs e)
+        {
+            checkBalance.Visible = false;
+            deposit.Visible = false;
+            withdraw.Visible = false;
+            logout.Visible = false;
+            login.Visible = true;
+            delete.Visible = true;
+            usernameTextBox.Text = "username";
+            passwordTextBox.Text = "password";
+        }
+
+        private void delete_Click(object sender, EventArgs e)
+        {
+            login.Visible = false;
+            delete.Visible = false;
+            usernameTextBox.Visible = true;
+            passwordTextBox.Visible = true;
+            usernameTextBox.ReadOnly = false;
+            passwordTextBox.ReadOnly = false;
+            deletes.Visible = true;
+            usernameTextBox.Text = "username";
+            passwordTextBox.Text = "password";
+        }
+
+        private void deletes_Click(object sender, EventArgs e)
+        {
+            if (!bank.Contains(usernameTextBox.Text))
+            {
+                Incorrect.Visible = true;
+                usernameTextBox.ReadOnly = false;
+                passwordTextBox.ReadOnly = false;
+                return;
+            }
+            Incorrect.Visible = false;
+            usernameTextBox.Visible = false;
+            passwordTextBox.Visible = false;
+            deletes.Visible = false;
+            bank.DeleteAccount(usernameTextBox.Text, passwordTextBox.Text);
+            login.Visible = true;
+            delete.Visible = true;
         }
     }
 }

@@ -40,13 +40,16 @@
             ready = new Button();
             checkBalance = new Button();
             deposit = new Button();
-            button3 = new Button();
-            button4 = new Button();
+            withdraw = new Button();
+            logout = new Button();
             balanceText = new TextBox();
             dones = new Button();
             depositNumber = new TextBox();
             deposits = new Button();
             Error = new TextBox();
+            withdraws = new Button();
+            withdrawText = new TextBox();
+            deletes = new Button();
             SuspendLayout();
             // 
             // MakeAccount
@@ -134,6 +137,7 @@
             delete.TabIndex = 10;
             delete.Text = "Delete an Account";
             delete.UseVisualStyleBackColor = true;
+            delete.Click += delete_Click;
             // 
             // Incorrect
             // 
@@ -183,25 +187,29 @@
             deposit.UseVisualStyleBackColor = false;
             deposit.Click += deposit_Click;
             // 
-            // button3
+            // withdraw
             // 
-            button3.Location = new Point(611, 170);
-            button3.Margin = new Padding(4, 5, 4, 5);
-            button3.Name = "button3";
-            button3.Size = new Size(107, 38);
-            button3.TabIndex = 15;
-            button3.Text = "button3";
-            button3.UseVisualStyleBackColor = true;
+            withdraw.BackColor = Color.Olive;
+            withdraw.Location = new Point(611, 170);
+            withdraw.Margin = new Padding(4, 5, 4, 5);
+            withdraw.Name = "withdraw";
+            withdraw.Size = new Size(107, 38);
+            withdraw.TabIndex = 15;
+            withdraw.Text = "Withdraw";
+            withdraw.UseVisualStyleBackColor = false;
+            withdraw.Click += withdraw_Click;
             // 
-            // button4
+            // logout
             // 
-            button4.Location = new Point(611, 272);
-            button4.Margin = new Padding(4, 5, 4, 5);
-            button4.Name = "button4";
-            button4.Size = new Size(107, 38);
-            button4.TabIndex = 16;
-            button4.Text = "button4";
-            button4.UseVisualStyleBackColor = true;
+            logout.BackColor = Color.SandyBrown;
+            logout.Location = new Point(611, 272);
+            logout.Margin = new Padding(4, 5, 4, 5);
+            logout.Name = "logout";
+            logout.Size = new Size(107, 38);
+            logout.TabIndex = 16;
+            logout.Text = "Log Out";
+            logout.UseVisualStyleBackColor = false;
+            logout.Click += logout_Click;
             // 
             // balanceText
             // 
@@ -253,19 +261,52 @@
             Error.TabIndex = 20;
             Error.Text = "Error";
             // 
+            // withdraws
+            // 
+            withdraws.BackColor = Color.SlateBlue;
+            withdraws.Location = new Point(334, 317);
+            withdraws.Name = "withdraws";
+            withdraws.Size = new Size(112, 34);
+            withdraws.TabIndex = 21;
+            withdraws.Text = "Ready";
+            withdraws.UseVisualStyleBackColor = false;
+            withdraws.Click += withdraws_Click;
+            // 
+            // withdrawText
+            // 
+            withdrawText.Location = new Point(314, 116);
+            withdrawText.Name = "withdrawText";
+            withdrawText.Size = new Size(150, 31);
+            withdrawText.TabIndex = 22;
+            withdrawText.Text = "0";
+            // 
+            // deletes
+            // 
+            deletes.BackColor = SystemColors.ActiveCaption;
+            deletes.Location = new Point(334, 344);
+            deletes.Name = "deletes";
+            deletes.Size = new Size(112, 34);
+            deletes.TabIndex = 23;
+            deletes.Text = "Ready";
+            deletes.UseVisualStyleBackColor = false;
+            deletes.Click += deletes_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlLight;
             ClientSize = new Size(800, 450);
+            Controls.Add(deletes);
+            Controls.Add(withdrawText);
+            Controls.Add(withdraws);
             Controls.Add(Error);
             Controls.Add(deposits);
             Controls.Add(depositNumber);
             Controls.Add(dones);
             Controls.Add(balanceText);
-            Controls.Add(button4);
-            Controls.Add(button3);
+            Controls.Add(logout);
+            Controls.Add(withdraw);
             Controls.Add(deposit);
             Controls.Add(checkBalance);
             Controls.Add(ready);
@@ -299,12 +340,15 @@
         private Button ready;
         private Button checkBalance;
         private Button deposit;
-        private Button button3;
-        private Button button4;
+        private Button withdraw;
+        private Button logout;
         private TextBox balanceText;
         private Button dones;
         private TextBox depositNumber;
         private Button deposits;
         private TextBox Error;
+        private Button withdraws;
+        private TextBox withdrawText;
+        private Button deletes;
     }
 }
