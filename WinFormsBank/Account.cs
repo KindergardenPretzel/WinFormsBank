@@ -11,12 +11,13 @@ namespace WinFormsBank
         private string Username;
         private string Password;
         private float Balance;
+        
 
         public Account(string username, string password, float balance)
         {
             Username = username;
             Password = password;
-            Balance = balance;
+            Balance = balance;           
         }
         public bool checkLogin(string username, string password)
         {
@@ -31,6 +32,7 @@ namespace WinFormsBank
         }
         public float checkBalance()
         {
+            
             return Balance;
         }
 
